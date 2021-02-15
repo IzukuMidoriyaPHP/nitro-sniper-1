@@ -142,7 +142,6 @@ module.exports = {
    snipedCode: (code, type, from, author, end) => `Success | Code: ${chalk.bold(code)} | ${type} | ${from} | ${author} | ${end}`,
    duplicateFound: (code, location, author) => `Avoiding Duplicate | Code: ${chalk.bold(code)} | ${location} | ${author}`,
    webhookTypes: ['codeInvalid', 'codeAlreadyRedeemed', 'codeSuccess', 'giveawayEntered', 'giveawayWin', 'inviteJoin'],
-   initSniper: 'Initializing sniper...',
    fields: {
       codeFail: (time, code, location) => [
          { key: 'Time Taken', value: time },
