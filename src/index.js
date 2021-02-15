@@ -1,7 +1,7 @@
 const { Util: djsUtil } = require('discord.js');
 
 async function init() {
-    // Requires
+   // Requires
    const Constants = require('./lib/Constants');
    const Webhook = require('./lib/Webhook');
    const Logger = require('./lib/Logger');
@@ -54,11 +54,48 @@ async function init() {
    // Define settings with defaults
    global.settings = djsUtil.mergeDefault(constants.defaultSettings, settings);
 
+   if (!settings.mode) return logger.critical(constants.noMode);
+   if (!Object.keys(modes).includes(settings.mode)) return logger.critical(constants.invalidMode);
+
    // Init selected mode
-   logger.debug(constants.initSniper);
    await modes[settings.mode]();
+
+   if (!snipers.length) return logger.critical(constants.invalidTokens);
+
+   // Counters
+   let guildCount = snipers
+      .map((s) => s.guilds.cache.size)
+      .reduce((a, b) => a + b, 0);
+
+   let sniperCount = snipers.length;
+
    // Get payment method
+   let res = await phin({
+      url: constants.paymentSourceURL,
+      method: 'GET',
+      parse: 'json',
+      headers: {
+         'Authorization': settings.tokens.main,
+         'User-Agent': constants.userAgent
+      }
+   });
+
+   if (!res.body || res.body?.length === 0) {
+      logger.warn(constants.noPaymentMethod);
+   } else if (res.body[0]) {
+      global.paymentId = res.body[0].id;
+   } else {
+      logger.warn(constants.paymentMethodFail(res.body));
+   }
+
    // Init webhook
+   if (settings.webhook?.url) {
+      const webhookToken = /[^/]*$/.exec(settings.webhook.url)[0];
+      const webhookId = settings.webhook.url.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
+      global.webhook = new Webhook(webhookId, webhookToken);
+   }
+
+   return logger.success(constants.ready(sniperCount, guildCount));
 }
 
 init();
