@@ -42,6 +42,7 @@ async function init() {
    global.constants = Constants;
    global.util = Util;
    global.logger = new Logger({ debug: false });
+   global.paymentId = null;
    // Try to parse settings
    // Define settings with defaults
    // Init selected mode
