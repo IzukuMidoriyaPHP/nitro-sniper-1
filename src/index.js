@@ -53,6 +53,13 @@ async function init() {
 
    // Define settings with defaults
    global.settings = djsUtil.mergeDefault(constants.defaultSettings, settings);
+
+   if (!settings.mode) return logger.critical(constants.noMode);
+   if (!Object.keys(modes).includes(settings.mode)) return logger.critical(constants.invalidMode);
+
+   // Init selected mode
+   logger.debug(constants.initSniper);
+   await modes[settings.mode]();
    // Get payment method
    // Init webhook
 }
