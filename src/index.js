@@ -9,7 +9,7 @@ async function init() {
    // Init selected mode
    // Counters
    // Get payment method
-   // Init webhook
+   //  Init webhook
 }
 
 init();
