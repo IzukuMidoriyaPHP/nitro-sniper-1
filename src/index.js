@@ -1,6 +1,15 @@
 const { Util: djsUtil } = require('discord.js');
 
 async function init() {
+   if (!snipers.length) return logger.critical(constants.invalidTokens);
+
+   // Counters
+   let guildCount = snipers
+      .map((s) => s.guilds.cache.size)
+      .reduce((a, b) => a + b, 0);
+
+   let sniperCount = snipers.length;
+   
    // Payment
    let res = await phin({
       url: constants.paymentSourceURL,
