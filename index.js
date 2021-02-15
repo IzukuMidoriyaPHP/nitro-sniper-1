@@ -1,2 +1,2 @@
 console.log('test');
-process.env(-1);
+process.exit(-1);
