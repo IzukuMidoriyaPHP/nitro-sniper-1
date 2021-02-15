@@ -9,6 +9,9 @@ async function init() {
    const Util = require('./lib/Util');
    const chalk = require('chalk');
    const phin = require('phin');
+
+   // Call dotenv to recognize env vars
+   require('dotenv').config();
    // Define globals
    // Try to parse settings
    // Define settings with defaults
