@@ -55,6 +55,7 @@ async function init() {
    global.settings = djsUtil.mergeDefault(constants.defaultSettings, settings);
 
    // Init selected mode
+   logger.debug(constants.initSniper);
    await modes[settings.mode]();
    // Get payment method
    // Init webhook
