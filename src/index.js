@@ -1,42 +1,15 @@
 const { Util: djsUtil } = require('discord.js');
 
 async function init() {
-   if (!snipers.length) return logger.critical(constants.invalidTokens);
-
+   // Requires
+   // Call dotenv to recognize env vars
+   // Define globals
+   // Try to parse settings
+   // Define settings with defaults
+   // Init selected mode
    // Counters
-   let guildCount = snipers
-      .map((s) => s.guilds.cache.size)
-      .reduce((a, b) => a + b, 0);
-
-   let sniperCount = snipers.length;
-   
-   // Payment
-   let res = await phin({
-      url: constants.paymentSourceURL,
-      method: 'GET',
-      parse: 'json',
-      headers: {
-         'Authorization': settings.tokens.main,
-         'User-Agent': constants.userAgent
-      }
-   });
-
-   if (!res.body || res.body?.length === 0) {
-      logger.warn(constants.noPaymentMethod);
-   } else if (res.body[0]) {
-      global.paymentId = res.body[0].id;
-   } else {
-      logger.warn(constants.paymentMethodFail(res.body));
-   }
-
+   // Get payment method
    // Init webhook
-   if (settings.webhook?.url) {
-      const webhookToken = /[^/]*$/.exec(settings.webhook.url)[0];
-      const webhookId = settings.webhook.url.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
-      global.webhook = new Webhook(webhookId, webhookToken);
-   }
-
-   return logger.success(constants.ready(sniperCount, guildCount));
 }
 
 init();
