@@ -62,9 +62,6 @@ async function init() {
    if (!snipers.length) return logger.critical(constants.invalidTokens);
    // Define settings with defaults
 
-   let guildCount = snipers
-      .map((s) => s.guilds.cache.size)
-      .reduce((a, b) => a + b, 0);
 
 
    // Get payment method
