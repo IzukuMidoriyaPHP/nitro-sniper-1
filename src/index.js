@@ -64,7 +64,6 @@ async function init() {
 
 
 
-   // Get payment method
 }
 
 init();
