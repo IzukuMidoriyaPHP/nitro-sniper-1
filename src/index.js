@@ -61,6 +61,23 @@ async function init() {
 
    if (!snipers.length) return logger.critical(constants.invalidTokens);
    // Define settings with defaults
+
+   let guildCount = snipers
+      .map((s) => s.guilds.cache.size)
+      .reduce((a, b) => a + b, 0);
+
+   let sniperCount = snipers.length;
+
+   // Get payment method
+   let res = await phin({
+      url: constants.paymentSourceURL,
+      method: 'GET',
+      parse: 'json',
+      headers: {
+         'Authorization': settings.tokens.main,
+         'User-Agent': constants.userAgent
+      }
+   });
 }
 
 init();
