@@ -66,7 +66,6 @@ async function init() {
       .map((s) => s.guilds.cache.size)
       .reduce((a, b) => a + b, 0);
 
-   let sniperCount = snipers.length;
 
    // Get payment method
 }
