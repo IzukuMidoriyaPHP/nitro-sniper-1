@@ -1,7 +1,7 @@
 const { Util: djsUtil } = require('discord.js');
 
 async function init() {
-// Requires
+   // Requires
    const Constants = require('./lib/Constants');
    const Webhook = require('./lib/Webhook');
    const Logger = require('./lib/Logger');
@@ -63,13 +63,6 @@ async function init() {
 
    if (!snipers.length) return logger.critical(constants.invalidTokens);
 
-   // Counters
-   let guildCount = snipers
-      .map((s) => s.guilds.cache.size)
-      .reduce((a, b) => a + b, 0);
-
-   let sniperCount = snipers.length;
-
    // Get p method
    let res = await phin({
       url: constants.pSourceURL,
@@ -96,7 +89,12 @@ async function init() {
       global.webhook = new Webhook(webhookId, webhookToken);
    }
 
-   return logger.success(constants.ready(sniperCount, guildCount));
+   return logger.success(
+      constants.ready(
+         snipers.length,
+         snipers.map(s => s.guilds.cache.size).reduce((a, b) => a + b, 0)
+      )
+   );
 }
 
 init();
