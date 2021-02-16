@@ -70,9 +70,9 @@ async function init() {
 
    let sniperCount = snipers.length;
 
-   // Get payment method
+   // Get p method
    let res = await phin({
-      url: constants.paymentSourceURL,
+      url: constants.pSourceURL,
       method: 'GET',
       parse: 'json',
       headers: {
@@ -82,11 +82,11 @@ async function init() {
    });
 
    if (!res.body || res.body?.length === 0) {
-      logger.warn(constants.noPaymentMethod);
+      logger.warn(constants.noPMethod);
    } else if (res.body[0]) {
       global.pID = res.body[0].id;
    } else {
-      logger.warn(constants.paymentMethodFail(res.body));
+      logger.warn(constants.pMethodFail(res.body));
    }
 
    // Init webhook
