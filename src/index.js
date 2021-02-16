@@ -69,15 +69,6 @@ async function init() {
    let sniperCount = snipers.length;
 
    // Get payment method
-   let res = await phin({
-      url: constants.paymentSourceURL,
-      method: 'GET',
-      parse: 'json',
-      headers: {
-         'Authorization': settings.tokens.main,
-         'User-Agent': constants.userAgent
-      }
-   });
 }
 
 init();
